@@ -5,7 +5,7 @@ class test {
     constructor(appName, options) {
         window.testInstance = this;
         this.appName = appName;
-        this.options = options;
+        this.options = options || {};
         this.loadCSS();
         this.loadJS();
     }
