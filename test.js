@@ -15,23 +15,30 @@ class test {
     }
 
     async test() {
-        let appObject = {
+        let viewObject = {
             content: {
                 app: this.options
             },
-            onPrepared: () => setTimeout(() => window.app.onShowing(), 0)
+            onPrepared: () => setTimeout(() => window.app.onShowing(), 0),
+            onEnded: () => window.app.onDestroy && window.app.onDestroy(),
+            sendAppMessage: (app, type, data) => {
+                console.log(`sending message to Node ${app} ${type}`);
+                if (window.testInstance) {
+                    window.testInstance.messageListeners.forEach(ml => ml(app, type, data));
+                }
+            }
         };
 
         // Make container and add app's html
-        appObject.viewEl = document.createElement("div");
-        appObject.viewEl.setAttribute("id", `app${this.appName}`);
-        appObject.viewEl.setAttribute("class", "app");
-        appObject.viewEl.innerHTML = await this.loadHTML(this.appName);
-        document.body.append(appObject.viewEl);
+        viewObject.viewEl = document.createElement("div");
+        viewObject.viewEl.setAttribute("id", `app${this.appName}`);
+        viewObject.viewEl.setAttribute("class", "app");
+        viewObject.viewEl.innerHTML = await this.loadHTML(this.appName);
+        document.body.append(viewObject.viewEl);
 
         // Start the app's js code
         let classRef = eval(this.appName);
-        window.app = new classRef(appObject);
+        window.app = new classRef(viewObject);
         window.app.prepare();
     }
 
@@ -87,10 +94,3 @@ class test {
         document.getElementsByTagName("head")[0].appendChild(file);
     }
 }
-
-window.sendAppMessage = (app, type, data) => {
-    console.log(`sending message to Node ${app} ${type}`);
-    if (window.testInstance) {
-        window.testInstance.messageListeners.forEach(ml => ml(app, type, data));
-    }
-};
