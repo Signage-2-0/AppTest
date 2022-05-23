@@ -2,6 +2,7 @@
 class test {
     messageListeners = [];
     prepared = false;
+    showing = false;
 
     constructor(appName, options) {
         window.testInstance = this;
@@ -120,6 +121,8 @@ class test {
 
     showClicked() {
         if (!this.prepared) return;
+        if (this.showing) return;
+        this.showing = true;
         console.log('show clicked');
         let sb = document.body.querySelector('.stateButton');
         sb.setAttribute("data-prepared","no");
