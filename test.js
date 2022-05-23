@@ -1,6 +1,7 @@
 
 class test {
     messageListeners = [];
+    prepared = false;
 
     constructor(appName, options) {
         window.testInstance = this;
@@ -8,10 +9,25 @@ class test {
         this.options = options || {};
         this.loadCSS();
         this.loadJS();
+        this.prepState();
     }
 
     onMessageToServer(listener) {
         this.messageListeners.push(listener);
+    }
+
+    prepState() {
+        let style = document.createElement("style");
+        style.innerHTML = 'div.stateButton { position:absolute;bottom:50px;right:50px;width:150px;height:150px;border-radius:50%;background:#3D409ACC;z-index:1000;text-align:center;line-height:150px;font-size:40px;color:white;font-family:Arial;cursor:pointer;}' +
+            'div.stateButton[data-prepared="no"] { opacity: 0.4; }';
+        document.head.append(style);
+
+        let butEl = document.createElement("div");
+        butEl.setAttribute("class", "stateButton");
+        butEl.setAttribute("data-prepared","no");
+        butEl.innerText = 'show';
+        butEl.onclick = this.showClicked.bind(this);
+        document.body.append(butEl);
     }
 
     async test() {
@@ -19,7 +35,7 @@ class test {
             content: {
                 app: this.options
             },
-            onPrepared: () => setTimeout(() => window.app.onShowing(), 0),
+            onPrepared: () => this.preparedCalled.call(this),
             onEnded: () => window.app.onDestroy && window.app.onDestroy(),
             sendAppMessage: (app, type, data) => {
                 console.log(`sending message to Node ${app} ${type}`);
@@ -92,5 +108,18 @@ class test {
         file.src = `/${this.appName}/${this.appName}.js`;
         file.onload = function(ignore) { window.testInstance.test().then(); };
         document.getElementsByTagName("head")[0].appendChild(file);
+    }
+
+    preparedCalled() {
+        this.prepared = true;
+        console.log('prepared called');
+        document.body.querySelector('.stateButton').setAttribute("data-prepared","yes");
+    }
+
+    showClicked() {
+        if (!this.prepared) return;
+        console.log('show clicked');
+        document.body.querySelector('.stateButton').remove();
+        window.app.onShowing()
     }
 }
