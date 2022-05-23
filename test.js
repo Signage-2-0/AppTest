@@ -25,7 +25,7 @@ class test {
         let butEl = document.createElement("div");
         butEl.setAttribute("class", "stateButton");
         butEl.setAttribute("data-prepared","no");
-        butEl.innerText = 'show';
+        butEl.innerText = 'preparing';
         butEl.onclick = this.showClicked.bind(this);
         document.body.append(butEl);
     }
@@ -113,13 +113,17 @@ class test {
     preparedCalled() {
         this.prepared = true;
         console.log('prepared called');
-        document.body.querySelector('.stateButton').setAttribute("data-prepared","yes");
+        let sb = document.body.querySelector('.stateButton');
+        sb.setAttribute("data-prepared","yes");
+        sb.innerHTML = "prepared<br>show";
     }
 
     showClicked() {
         if (!this.prepared) return;
         console.log('show clicked');
-        document.body.querySelector('.stateButton').remove();
-        window.app.onShowing()
+        let sb = document.body.querySelector('.stateButton');
+        sb.setAttribute("data-prepared","no");
+        sb.innerHTML = "showing";
+        window.app.onShowing();
     }
 }
