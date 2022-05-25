@@ -99,14 +99,14 @@ class test {
         let file = document.createElement("link");
         file.setAttribute("rel", "stylesheet");
         file.setAttribute("type", "text/css");
-        file.setAttribute("href", `/${this.appName}/${this.appName}.css`);
+        file.setAttribute("href", `${this.appName}.css`);
         document.getElementsByTagName("head")[0].appendChild(file);
     }
 
     loadJS() {
         let file = document.createElement('script');
         file.type = 'text/javascript';
-        file.src = `/${this.appName}/${this.appName}.js`;
+        file.src = `${this.appName}.js`;
         file.onload = function(ignore) { window.testInstance.test().then(); };
         document.getElementsByTagName("head")[0].appendChild(file);
     }
