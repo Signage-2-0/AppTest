@@ -19,7 +19,7 @@ class test {
 
     prepState() {
         let style = document.createElement("style");
-        style.innerHTML = 'div.stateButton { position:absolute;bottom:50px;right:50px;width:150px;height:150px;border-radius:50%;background:#3D409ACC;z-index:1000;text-align:center;line-height:150px;font-size:40px;color:white;font-family:Arial;cursor:pointer;}' +
+        style.innerHTML = 'div.stateButton { position:absolute;bottom:50px;right:50px;width:250px;height:100px;border-radius:50%;background:#3D409ACC;z-index:1000;text-align:center;line-height:100px;font-size:40px;color:white;font-family:Arial;cursor:pointer;}' +
             'div.stateButton[data-prepared="no"] { opacity: 0.4; }';
         document.head.append(style);
 
