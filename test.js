@@ -84,7 +84,7 @@ class test {
                     responded = true;
                 };
 
-                xhr.open("GET", `${this.appName}.html`, true);
+                xhr.open("GET", `index.html`, true);
                 xhr.setRequestHeader('Content-type', 'text/html');
                 xhr.send();
             } catch (err) {
@@ -99,14 +99,14 @@ class test {
         let file = document.createElement("link");
         file.setAttribute("rel", "stylesheet");
         file.setAttribute("type", "text/css");
-        file.setAttribute("href", `${this.appName}.css`);
+        file.setAttribute("href", `index.css`);
         document.getElementsByTagName("head")[0].appendChild(file);
     }
 
     loadJS() {
         let file = document.createElement('script');
         file.type = 'text/javascript';
-        file.src = `${this.appName}.js`;
+        file.src = `index.js`;
         file.onload = function(ignore) { window.testInstance.test().then(); };
         document.getElementsByTagName("head")[0].appendChild(file);
     }
