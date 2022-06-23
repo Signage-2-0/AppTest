@@ -49,7 +49,7 @@ class test {
         // Make container and add app's html
         viewObject.viewEl = document.createElement("div");
         viewObject.viewEl.setAttribute("id", `app${this.appName}`);
-        viewObject.viewEl.setAttribute("class", "app");
+        viewObject.viewEl.setAttribute("class", "App");
         viewObject.viewEl.innerHTML = await this.loadHTML(this.appName);
         document.body.append(viewObject.viewEl);
 
