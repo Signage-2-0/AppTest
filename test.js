@@ -48,14 +48,14 @@ class test {
 
         // Make container and add app's html
         viewObject.viewEl = document.createElement("div");
-        viewObject.viewEl.setAttribute("id", `app${this.appName}`);
-        viewObject.viewEl.setAttribute("class", "App");
-        viewObject.viewEl.innerHTML = await this.loadHTML(this.appName);
-        document.body.append(
-            document.createElement("div").append(
-                viewObject.viewEl
-            )
-        );
+        viewObject.viewEl.setAttribute("class", "app");
+
+        let appContainer = document.createElement("div");
+        appContainer.setAttribute("id", `app${this.appName}`);
+        appContainer.setAttribute("class", "App");
+        appContainer.innerHTML = await this.loadHTML(this.appName);
+        viewObject.viewEl.append(appContainer);
+        document.body.append(viewObject.viewEl);
 
         // Start the app's js code
         let classRef = eval(this.appName);
