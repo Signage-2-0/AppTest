@@ -51,7 +51,11 @@ class test {
         viewObject.viewEl.setAttribute("id", `app${this.appName}`);
         viewObject.viewEl.setAttribute("class", "App");
         viewObject.viewEl.innerHTML = await this.loadHTML(this.appName);
-        document.body.append(viewObject.viewEl);
+        document.body.append(
+            document.createElement("div").append(
+                viewObject.viewEl
+            )
+        );
 
         // Start the app's js code
         let classRef = eval(this.appName);
