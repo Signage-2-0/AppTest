@@ -3,7 +3,7 @@ const https = require('https');
 const options = {
     hostname: 'purge.jsdelivr.net',
     port: 443,
-    path: '/gh/Signage-2-0/AppTest/test.js',
+    path: '/gh/Signage-2-0/AppTest@latest/test.js',
     method: 'GET',
 };
 
