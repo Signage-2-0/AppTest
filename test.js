@@ -1,6 +1,6 @@
 
 class test {
-    version = 20210704.01;
+    version = 20210704.02;
     messageListeners = [];
     prepared = false;
     showing = false;
@@ -39,7 +39,7 @@ class test {
             },
             onPrepared: () => this.preparedCalled.call(this),
             onEnded: () => window.app.onDestroy && window.app.onDestroy(),
-            onNewPage: () => () => { console.log('New page message sent'); },
+            onNewPage: () => { console.log('New page message sent'); },
             sendAppMessage: (app, type, data) => {
                 console.log(`sending message to Node ${app} ${type}`);
                 if (window.testInstance) {
